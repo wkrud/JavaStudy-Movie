@@ -1,8 +1,13 @@
 package com.movie;
 
+import com.movie.main.MovieMain;
+
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
+
+        MovieMain select = new MovieMain();
+        select.MainStream();
+
     }
 }
