@@ -10,11 +10,16 @@ public class MovieMain {
 
     private MovieMenu movieMenu = new MovieMenu();
 
-    public void MainStream() {
+    public void MainStream() throws Exception {
         Map<String, Object> vo = new HashMap<>();
 
-        while(true) {
-            movieMenu.selectMenu();
+        try {
+            while(true) {
+                movieMenu.selectMenu();
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            throw new Exception(e);
         }
 
     }

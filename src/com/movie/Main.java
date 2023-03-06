@@ -7,7 +7,11 @@ public class Main {
     public static void main(String[] args) {
 
         MovieMain select = new MovieMain();
-        select.MainStream();
+        try {
+            select.MainStream();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 }

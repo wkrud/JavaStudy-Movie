@@ -8,17 +8,19 @@ public class UserVo {
     private String pw;
     private String name;
     private String email;
+    private Boolean loginBool;
     private Date regDt;
     private Date updDt;
 
     public UserVo() {
     }
 
-    public UserVo(String id, String pw, String name, String email, Date regDt, Date updDt) {
+    public UserVo(String id, String pw, String name, String email, Boolean loginBool, Date regDt, Date updDt) {
         this.id = id;
         this.pw = pw;
         this.name = name;
         this.email = email;
+        this.loginBool = loginBool;
         this.regDt = regDt;
         this.updDt = updDt;
     }
@@ -55,6 +57,10 @@ public class UserVo {
         this.email = email;
     }
 
+    public Boolean getLoginBool() {return loginBool;}
+
+    public void setLoginBool(Boolean loginBool){this.loginBool = loginBool;}
+
     public Date getRegDt() {
         return regDt;
     }
@@ -78,6 +84,7 @@ public class UserVo {
                 ", pw='" + pw + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", loginBool='" + loginBool + '\'' +
                 ", regDt=" + regDt +
                 ", updDt=" + updDt +
                 '}';
