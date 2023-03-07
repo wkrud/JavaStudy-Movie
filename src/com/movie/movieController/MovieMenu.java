@@ -14,6 +14,7 @@ public class MovieMenu {
 
     public UserVo selectMenu() throws Exception {
         String selectedNum = "";
+        Boolean loginBool = false;
 
         try {
             System.out.print(comStr.MAINSTR);
