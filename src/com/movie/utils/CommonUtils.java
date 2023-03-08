@@ -1,9 +1,73 @@
 package com.movie.utils;
 
+import com.movie.vo.UserVo;
+
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.*;
 
-public class CommonUtils {
+public abstract class CommonUtils {
+
+    /**
+     * 메소드 설명 : 로그인 유저정보 확인
+     * @param usrList
+     * @return chkMap
+     * @throws Exception
+     */
+    public Map<String, Object> chkLogin(Map<String, Object> usrMap) throws Exception {
+        Map<String, Object> chkMap = new HashMap<>();
+        UserVo loginVo = null;
+        try {
+            if (!usrMap.containsKey("usrList")) {
+                chkMap.put("chk", "NONE");
+                return chkMap;
+            }
+
+            List<UserVo> usrList = (List<UserVo>) usrMap.get("usrList");
+            chkMap.put("usrList", usrList);
+
+            for (UserVo vo : usrList) {
+                if (vo.getLoginBool()) {
+                    loginVo = new UserVo();
+                    loginVo = vo;
+                    chkMap.put("loginVo", loginVo);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception(e);
+        }
+
+        return chkMap;
+    }
+
+    public Object getData(Map<String, Object> map, Object obj) throws Exception {
+
+        String keyAttribute = null;
+        String setMethodString = "set";
+        String methodString = null;
+        try{
+            Iterator itr = map.keySet().iterator();
+
+            while (itr.hasNext()) {
+                keyAttribute = (String) itr.next();
+                methodString = setMethodString + keyAttribute.substring(0, 1).toUpperCase() + keyAttribute.substring(1);
+
+                Method[] methods = obj.getClass().getDeclaredMethods();
+                for (int idx1 = 0; idx1 <= methods.length; idx1++) {
+                    if (methodString.equals(methods[idx1].getName())) {
+                        System.out.println("invoke : " + methodString);
+                        methods[idx1].invoke(obj, map.get(keyAttribute));
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception(e);
+        }
+        return obj;
+    }
 
     /**
      * 메소드 설명 : List<?> -> List<Map>
@@ -25,7 +89,7 @@ public class CommonUtils {
                 resultList.add(getMapByObj(obj));
             }
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             throw new Exception(e);
         }
 
@@ -52,7 +116,7 @@ public class CommonUtils {
                 map.put(field.getName(), field.get(obj));
             }
         } catch (IllegalAccessException e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             throw new Exception(e);
         }
         return map;
@@ -85,7 +149,7 @@ public class CommonUtils {
 //                }
 //            }
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             throw new Exception(e);
         }
 

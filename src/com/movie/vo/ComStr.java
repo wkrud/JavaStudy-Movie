@@ -19,4 +19,5 @@ public class ComStr {
     public static final String LOGINPW = "비밀번호 : ";
     public static final String LOGINFAIL = "회원정보가 일치하지 않습니다.";
     public static final String LOGINSUCCESS = "로그인에 성공했습니다.";
+    public static final String NONE = "NONE";
 }

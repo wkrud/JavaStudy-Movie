@@ -11,11 +11,13 @@ public class MovieMain {
     private MovieMenu movieMenu = new MovieMenu();
 
     public void MainStream() throws Exception {
-        Map<String, Object> vo = new HashMap<>();
-
+        Map<String, Object> voMap = new HashMap<>();
+        UserVo usrVo = new UserVo();
         try {
             while(true) {
-                movieMenu.selectMenu();
+                voMap = movieMenu.selectMenu(voMap);
+
+                if (voMap.containsKey("END")) break;
             }
         } catch (Exception e) {
             System.out.println(e.toString());

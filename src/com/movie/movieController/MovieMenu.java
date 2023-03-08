@@ -1,18 +1,29 @@
 package com.movie.movieController;
 
+import com.movie.movieService.LoginNJoin;
+import com.movie.utils.CommonUtils;
 import com.movie.vo.ComStr;
 import com.movie.vo.UserVo;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-public class MovieMenu {
+public class MovieMenu extends CommonUtils {
 
     private ComStr comStr;
     private Scanner sc = new Scanner(System.in);
 
-    public UserVo selectMenu() throws Exception {
+    private LoginNJoin loginNJoin;
+
+    public Map<String, Object> selectMenu(Map<String, Object> startMap) throws Exception {
+
+        Map<String, Object> usrMap = chkLogin(startMap);
+        if (comStr.NONE.equals(usrMap.get("chk"))) {
+
+        }
+
         String selectedNum = "";
         Boolean loginBool = false;
 
@@ -29,6 +40,7 @@ public class MovieMenu {
                 case "2":
                     System.out.println(comStr.PAGECUT);
                     System.out.println("로그인");
+                    usrMap = loginNJoin.doLogin(usrMap);
                     break;
                 case "3":
                     System.out.println(comStr.PAGECUT);
@@ -47,7 +59,7 @@ public class MovieMenu {
             throw new Exception(e);
         }
 
-        return null;
+        return usrMap;
     }
 
     public List<UserVo> loginCtl(List<UserVo> usrList) {
