@@ -4,10 +4,7 @@ import com.movie.utils.CommonUtils;
 import com.movie.vo.ComStr;
 import com.movie.vo.UserVo;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class LoginNJoin extends CommonUtils {
 
@@ -32,9 +29,11 @@ public class LoginNJoin extends CommonUtils {
     }
 
 
-    public List<UserVo> loginCtl(Map<String, Object> chkMap) {
+    public Map<String, Object> loginCtl(Map<String, Object> chkMap) {
+        System.out.println(chkMap);
         boolean loginBool = false;
         List<UserVo> usrList = null;
+        Map<String, Object> usrMap = null;
         if (chkMap.containsKey("usrList")) {
             usrList = (List<UserVo>) chkMap.get("usrList");
         } else {
@@ -44,6 +43,7 @@ public class LoginNJoin extends CommonUtils {
         System.out.print(comStr.LOGINID);
         ans = sc.next();
         System.out.println();
+        usrMap = new HashMap<>();
 
         IdLoop :
         for (UserVo chkId : usrList) {
@@ -55,20 +55,24 @@ public class LoginNJoin extends CommonUtils {
                 for (UserVo chkPw : usrList) {
                     if (ans.equals(chkPw.getPw())) {
                         loginBool = true;
+                        chkPw.setLoginBool(loginBool);
                         break IdLoop;
                     }
                 }
             }
         }
-
+        usrMap.put("usrList", usrList);
         if (loginBool) {
             System.out.println(comStr.LOGINSUCCESS);
         } else {
             System.out.println(comStr.LOGINFAIL);
         }
 
+        return usrMap;
+    }
 
-        return usrList;
+    public void test(Map<String, Object> map) {
+        System.out.println(map);
     }
 
 }
