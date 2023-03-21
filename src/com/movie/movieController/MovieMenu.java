@@ -3,6 +3,7 @@ package com.movie.movieController;
 import com.movie.movieService.LoginNJoin;
 import com.movie.utils.CommonUtils;
 import com.movie.vo.ComStr;
+import com.movie.vo.UserListVo;
 import com.movie.vo.UserVo;
 
 import java.util.*;
@@ -17,23 +18,23 @@ public class MovieMenu extends CommonUtils {
     public MovieMenu() {
     }
 
-    public Map<String, Object> selectMenu(Map<String, Object> startMap) throws Exception {
-        Map<String, Object> usrMap = null;
-
+    public void selectMenu(Map<String, Object> usrMap) throws Exception {
+//        Map<String, Object> usrMap = null;
         try {
-            usrMap = chkLogin(startMap);
-
-            if (comStr.NONE.equals((String) usrMap.get("chk"))) {
-                selectForAll(usrMap);
-            } else {
-                selectForUsr(usrMap);
+            while (!"END".equals((String) usrMap.get("END"))) {
+//                userList.setEnd("END");
+                System.out.println(usrMap);
+                if (usrMap.containsKey("loginUsr") && !"".equals(((UserVo) usrMap.get("loginUsr")).getId())) {
+                    usrMap = selectForUsr(usrMap);
+                } else {
+                    usrMap = selectForAll(usrMap);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception(e);
         }
 
-        return usrMap;
     }
 
     public Map<String, Object> selectForAll(Map<String, Object> usrMap) throws Exception {
@@ -41,7 +42,7 @@ public class MovieMenu extends CommonUtils {
         Boolean loginBool = false;
 
         try {
-            System.out.print(comStr.MAINSTR);
+            System.out.print(comStr.MAINSTR_ALL);
             selectedNum = sc.next();
             System.out.println();
 
@@ -61,7 +62,7 @@ public class MovieMenu extends CommonUtils {
                     break;
                 case "4":
                     System.out.println(comStr.PAGECUT);
-                    System.out.println("종료");
+                    usrMap = getEnd(usrMap);
                     break;
                 default :
                     System.out.println(comStr.PAGECUT);
@@ -79,7 +80,7 @@ public class MovieMenu extends CommonUtils {
         Boolean loginBool = false;
 
         try {
-            System.out.print(comStr.MAINSTR);
+            System.out.print(comStr.MAINSTR_USR);
             selectedNum = sc.next();
             System.out.println();
 
@@ -91,12 +92,6 @@ public class MovieMenu extends CommonUtils {
                 case "2":
                     System.out.println(comStr.PAGECUT);
                     System.out.println("마이페이지");
-//                    System.out.println(usrMap);
-//                    usrMap = loginNJoin.doLogin(usrMap);
-//                    usrMap = loginCtl(usrMap);
-//                    loginNJoin.loginCtl(usrMap);
-//                    usrMap = loginNJoin.loginCtl(usrMap);
-//                    usrMap = Collections.unmodifiableMap(loginNJoin.loginCtl(usrMap));
                     break;
                 case "3":
                     System.out.println(comStr.PAGECUT);
@@ -104,7 +99,7 @@ public class MovieMenu extends CommonUtils {
                     break;
                 case "4":
                     System.out.println(comStr.PAGECUT);
-                    System.out.println("종료");
+                    usrMap = getEnd(usrMap);
                     break;
                 default :
                     System.out.println(comStr.PAGECUT);

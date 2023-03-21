@@ -1,6 +1,7 @@
 package com.movie.main;
 
 import com.movie.movieController.MovieMenu;
+import com.movie.vo.UserListVo;
 import com.movie.vo.UserVo;
 
 import java.util.ArrayList;
@@ -18,14 +19,20 @@ public class MovieMain {
         UserVo usrVo = new UserVo();
         usrVo.setLoginBool(false);
         usrVo.setId("default");
+        usrVo.setPw("default");
         usrList.add(usrVo);
         voMap.put("usrList", usrList);
         voMap.put("chk", "NONE");
-        try {
-            while(true) {
-                voMap = movieMenu.selectMenu(voMap);
+        UserListVo userListVo = new UserListVo();
+        userListVo.setUsrList(usrList);
+        userListVo.setEnd("START");
 
-                if (voMap.containsKey("END")) break;
+        boolean bool = true;
+        try {
+            while ("END".equals(userListVo.getEnd())) {
+//                userListVo = movieMenu.selectMenu(userListVo);
+
+//                if ("END".equals(userListVo.getEnd())) bool = false;
             }
         } catch (Exception e) {
             System.out.println(e.toString());

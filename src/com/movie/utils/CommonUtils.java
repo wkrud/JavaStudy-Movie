@@ -1,6 +1,7 @@
 package com.movie.utils;
 
 import com.movie.vo.ComStr;
+import com.movie.vo.UserListVo;
 import com.movie.vo.UserVo;
 
 import java.lang.reflect.Field;
@@ -13,78 +14,19 @@ public abstract class CommonUtils {
     private Scanner sc = new Scanner(System.in);
 
     /**
-     * 메소드 설명 : 로그인 유저정보 확인
-     * @param usrList
-     * @return chkMap
+     * 메소드 설명 : 종료
+     * @param usrMap
+     * @return
      * @throws Exception
      */
-    public Map<String, Object> chkLogin(Map<String, Object> usrMap) throws Exception {
-        Map<String, Object> chkMap = new HashMap<>();
-        UserVo loginVo = null;
+    public Map<String, Object> getEnd(Map<String, Object> usrMap) throws Exception {
         try {
-            chkMap.put("chk", "NONE");
-            if (!usrMap.containsKey("usrList")) {
-                return chkMap;
-            }
-
-            List<UserVo> usrList = (List<UserVo>) usrMap.get("usrList");
-            chkMap.put("usrList", usrList);
-
-            for (UserVo vo : usrList) {
-                if (vo.getLoginBool()) {
-                    loginVo = new UserVo();
-                    loginVo = vo;
-                    chkMap.put("chk", "CHK");
-                    chkMap.put("loginVo", loginVo);
-                }
-            }
+            System.out.println(comStr.END);
+            usrMap.replace("END", "END");
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception(e);
         }
-
-        return chkMap;
-    }
-
-    public Map<String, Object> loginCtl(Map<String, Object> chkMap) {
-        System.out.println(chkMap);
-        boolean loginBool = false;
-        List<UserVo> usrList = null;
-        Map<String, Object> usrMap = null;
-        if (chkMap.containsKey("usrList")) {
-            usrList = (List<UserVo>) chkMap.get("usrList");
-        } else {
-            usrList = new ArrayList<>();
-        }
-        String ans = "";
-        System.out.print(comStr.LOGINID);
-        ans = sc.next();
-        System.out.println();
-        usrMap = new HashMap<>();
-
-        IdLoop :
-        for (UserVo chkId : usrList) {
-            if (ans.equals(chkId.getId())) {
-                System.out.print(comStr.LOGINPW);
-                ans = sc.next();
-                System.out.println();
-
-                for (UserVo chkPw : usrList) {
-                    if (ans.equals(chkPw.getPw())) {
-                        loginBool = true;
-                        chkPw.setLoginBool(loginBool);
-                        break IdLoop;
-                    }
-                }
-            }
-        }
-        usrMap.put("usrList", usrList);
-        if (loginBool) {
-            System.out.println(comStr.LOGINSUCCESS);
-        } else {
-            System.out.println(comStr.LOGINFAIL);
-        }
-
         return usrMap;
     }
 
