@@ -22,6 +22,8 @@ public class Main {
             usrVo.setLoginBool(false);
             usrVo.setId("default");
             usrVo.setPw("default");
+            usrVo.setName("default");
+            usrVo.setEmail("default");
             usrList.add(usrVo);
 
             usrMap.put("usrList", usrList);

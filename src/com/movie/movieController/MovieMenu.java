@@ -3,14 +3,13 @@ package com.movie.movieController;
 import com.movie.movieService.LoginNJoin;
 import com.movie.utils.CommonUtils;
 import com.movie.vo.ComStr;
-import com.movie.vo.UserListVo;
 import com.movie.vo.UserVo;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Scanner;
 
 public class MovieMenu extends CommonUtils {
 
-    private ComStr comStr;
     private Scanner sc = new Scanner(System.in);
 
     private LoginNJoin loginNJoin = new LoginNJoin();
@@ -42,31 +41,28 @@ public class MovieMenu extends CommonUtils {
         Boolean loginBool = false;
 
         try {
-            System.out.print(comStr.MAINSTR_ALL);
+            System.out.print(ComStr.MAINSTR_ALL);
             selectedNum = sc.next();
             System.out.println();
+            System.out.println(ComStr.PAGECUT);
 
             switch(selectedNum) {
                 case "1":
-                    System.out.println(comStr.PAGECUT);
                     System.out.println("현재상영작");
                     break;
                 case "2":
-                    System.out.println(comStr.PAGECUT);
                     System.out.println("로그인");
                     usrMap = loginNJoin.loginCtl(usrMap);
                     break;
                 case "3":
-                    System.out.println(comStr.PAGECUT);
                     System.out.println("회원가입");
+                    usrMap = loginNJoin.joinUsr(usrMap);
                     break;
                 case "4":
-                    System.out.println(comStr.PAGECUT);
                     usrMap = getEnd(usrMap);
                     break;
                 default :
-                    System.out.println(comStr.PAGECUT);
-                    System.out.println("메뉴에 있는 번호를 입력해 주시기 바랍니다.");
+                    System.out.println(ComStr.DEFAULT_MSG);
             }
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -80,30 +76,27 @@ public class MovieMenu extends CommonUtils {
         Boolean loginBool = false;
 
         try {
-            System.out.print(comStr.MAINSTR_USR);
+            System.out.print(ComStr.MAINSTR_USR);
             selectedNum = sc.next();
             System.out.println();
+            System.out.println(ComStr.PAGECUT);
 
             switch(selectedNum) {
                 case "1":
-                    System.out.println(comStr.PAGECUT);
                     System.out.println("현재상영작");
                     break;
                 case "2":
-                    System.out.println(comStr.PAGECUT);
                     System.out.println("마이페이지");
                     break;
                 case "3":
-                    System.out.println(comStr.PAGECUT);
                     System.out.println("로그아웃");
+                    usrMap = loginNJoin.doLogout(usrMap);
                     break;
                 case "4":
-                    System.out.println(comStr.PAGECUT);
                     usrMap = getEnd(usrMap);
                     break;
                 default :
-                    System.out.println(comStr.PAGECUT);
-                    System.out.println("메뉴에 있는 번호를 입력해 주시기 바랍니다.");
+                    System.out.println(ComStr.DEFAULT_MSG);
             }
         } catch (Exception e) {
             System.out.println(e.toString());
